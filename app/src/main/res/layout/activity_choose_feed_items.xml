@@ -1,11 +1,9 @@
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/content_frame"
     android:background="#ffffff"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:animateLayoutChanges="true"   >
+    android:animateLayoutChanges="true">
 
 
     <ScrollView
@@ -24,7 +22,8 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:orientation="horizontal"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_gravity="center"
@@ -75,7 +74,7 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1.2"
-                            android:id="@+id/stars_collegespace"
+                            android:id="@+id/likes_collegespace"
                             android:text="..." />
                         <ImageView
                             android:layout_width="0dp"
@@ -83,7 +82,7 @@
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/ic_stars_black_24dp"
+                            android:src="@drawable/ic_likes_black_24dp"
                             android:alpha="0.5"/>
                         <View
                             android:layout_width="0dp"
@@ -153,7 +152,7 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1.2"
-                            android:id="@+id/stars_crosslinks"
+                            android:id="@+id/likes_crosslinks"
                             android:text="..." />
                         <ImageView
                             android:layout_width="0dp"
@@ -161,7 +160,7 @@
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/ic_stars_black_24dp"
+                            android:src="@drawable/ic_likes_black_24dp"
                             android:alpha="0.5"/>
                         <View
                             android:layout_width="0dp"
@@ -190,7 +189,8 @@
                 android:layout_width="fill_parent"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_gravity="center"
@@ -240,7 +240,7 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1.2"
-                            android:id="@+id/stars_csi"
+                            android:id="@+id/likes_csi"
                             android:text="..." />
                         <ImageView
                             android:layout_width="0dp"
@@ -248,7 +248,7 @@
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/ic_stars_black_24dp"
+                            android:src="@drawable/ic_likes_black_24dp"
                             android:alpha="0.5"
                             />
                         <View
@@ -321,14 +321,14 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1.2"
-                            android:id="@+id/stars_ieee"/>
+                            android:id="@+id/likes_ieee"/>
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_weight="0.8"
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/ic_stars_black_24dp"
+                            android:src="@drawable/ic_likes_black_24dp"
                             android:alpha="0.5"/>
                         <View
                             android:layout_width="0dp"
@@ -359,7 +359,8 @@
                 android:layout_width="fill_parent"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:baselineAligned="false">
 
 
                 <LinearLayout
@@ -408,14 +409,14 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1.2"
-                            android:id="@+id/stars_ashwa"/>
+                            android:id="@+id/likes_ashwa"/>
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_weight="0.8"
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/ic_stars_black_24dp"
+                            android:src="@drawable/ic_likes_black_24dp"
                             android:alpha="0.5"/>
                         <View
                             android:layout_width="0dp"
@@ -484,14 +485,14 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1.2"
-                            android:id="@+id/stars_junoon"/>
+                            android:id="@+id/likes_junoon"/>
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_weight="0.8"
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/ic_stars_black_24dp"
+                            android:src="@drawable/ic_likes_black_24dp"
                             android:alpha="0.5"/>
                         <View
                             android:layout_width="0dp"
@@ -568,14 +569,14 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1.2"
-                            android:id="@+id/stars_debsoc"/>
+                            android:id="@+id/likes_debsoc"/>
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_weight="0.8"
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/ic_stars_black_24dp"
+                            android:src="@drawable/ic_likes_black_24dp"
                             android:alpha="0.5"/>
                         <View
                             android:layout_width="0dp"
@@ -644,14 +645,14 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1.2"
-                            android:id="@+id/stars_quiz"/>
+                            android:id="@+id/likes_quiz"/>
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_weight="0.8"
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/ic_stars_black_24dp"
+                            android:src="@drawable/ic_likes_black_24dp"
                             android:alpha="0.5"/>
                         <View
                             android:layout_width="0dp"
@@ -678,7 +679,8 @@
                 android:layout_width="fill_parent"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:baselineAligned="false">
 
 
                 <LinearLayout
@@ -727,14 +729,14 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1.2"
-                            android:id="@+id/stars_bullethawk"/>
+                            android:id="@+id/likes_bullethawk"/>
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_weight="0.8"
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/ic_stars_black_24dp"
+                            android:src="@drawable/ic_likes_black_24dp"
                             android:alpha="0.5"/>
                         <View
                             android:layout_width="0dp"
@@ -803,14 +805,14 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1.2"
-                            android:id="@+id/stars_rotaract"/>
+                            android:id="@+id/likes_rotaract"/>
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_weight="0.8"
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/ic_stars_black_24dp"
+                            android:src="@drawable/ic_likes_black_24dp"
                             android:alpha="0.5"/>
                         <View
                             android:layout_width="0dp"
@@ -837,7 +839,8 @@
                 android:layout_width="fill_parent"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_gravity="center"
@@ -888,7 +891,7 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1.2"
-                            android:id="@+id/stars_enactus"
+                            android:id="@+id/likes_enactus"
                             android:text="..." />
                         <ImageView
                             android:layout_width="0dp"
@@ -896,7 +899,7 @@
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/ic_stars_black_24dp"
+                            android:src="@drawable/ic_likes_black_24dp"
                             android:alpha="0.5"/>
                         <View
                             android:layout_width="0dp"
@@ -967,7 +970,7 @@
                             android:textSize="15sp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1.2"
-                            android:id="@+id/stars_aagaz"
+                            android:id="@+id/likes_aagaz"
                             android:text="..." />
                         <ImageView
                             android:layout_width="0dp"
@@ -975,7 +978,7 @@
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
-                            android:src="@drawable/ic_stars_black_24dp"
+                            android:src="@drawable/ic_likes_black_24dp"
                             android:alpha="0.5"/>
                         <View
                             android:layout_width="0dp"

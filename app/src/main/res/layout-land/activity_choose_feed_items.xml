@@ -1,5 +1,4 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_frame"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -22,7 +21,8 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -69,7 +69,7 @@
                         android:paddingTop="10dp">
 
                         <TextView
-                            android:id="@+id/stars_collegespace"
+                            android:id="@+id/likes_collegespace"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -85,7 +85,7 @@
                             android:layout_weight="0.8"
                             android:adjustViewBounds="true"
                             android:alpha="0.5"
-                            android:src="@drawable/ic_stars_black_24dp" />
+                            android:src="@drawable/ic_likes_black_24dp" />
 
                         <View
                             android:layout_width="0dp"
@@ -151,7 +151,7 @@
                         android:paddingTop="10dp">
 
                         <TextView
-                            android:id="@+id/stars_crosslinks"
+                            android:id="@+id/likes_crosslinks"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -167,7 +167,7 @@
                             android:layout_weight="0.8"
                             android:adjustViewBounds="true"
                             android:alpha="0.5"
-                            android:src="@drawable/ic_stars_black_24dp" />
+                            android:src="@drawable/ic_likes_black_24dp" />
 
                         <View
                             android:layout_width="0dp"
@@ -232,7 +232,7 @@
                         android:paddingTop="10dp">
 
                         <TextView
-                            android:id="@+id/stars_csi"
+                            android:id="@+id/likes_csi"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -248,7 +248,7 @@
                             android:layout_weight="0.8"
                             android:adjustViewBounds="true"
                             android:alpha="0.5"
-                            android:src="@drawable/ic_stars_black_24dp" />
+                            android:src="@drawable/ic_likes_black_24dp" />
 
                         <View
                             android:layout_width="0dp"
@@ -314,7 +314,7 @@
                         android:paddingTop="10dp">
 
                         <TextView
-                            android:id="@+id/stars_ieee"
+                            android:id="@+id/likes_ieee"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -330,7 +330,7 @@
                             android:layout_weight="0.8"
                             android:adjustViewBounds="true"
                             android:alpha="0.5"
-                            android:src="@drawable/ic_stars_black_24dp" />
+                            android:src="@drawable/ic_likes_black_24dp" />
 
                         <View
                             android:layout_width="0dp"
@@ -358,7 +358,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
 
                 <LinearLayout
@@ -402,7 +403,7 @@
                         android:paddingTop="10dp">
 
                         <TextView
-                            android:id="@+id/stars_ashwa"
+                            android:id="@+id/likes_ashwa"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -418,7 +419,7 @@
                             android:layout_weight="0.8"
                             android:adjustViewBounds="true"
                             android:alpha="0.5"
-                            android:src="@drawable/ic_stars_black_24dp" />
+                            android:src="@drawable/ic_likes_black_24dp" />
 
                         <View
                             android:layout_width="0dp"
@@ -480,7 +481,7 @@
                         android:paddingTop="10dp">
 
                         <TextView
-                            android:id="@+id/stars_junoon"
+                            android:id="@+id/likes_junoon"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -496,7 +497,7 @@
                             android:layout_weight="0.8"
                             android:adjustViewBounds="true"
                             android:alpha="0.5"
-                            android:src="@drawable/ic_stars_black_24dp" />
+                            android:src="@drawable/ic_likes_black_24dp" />
 
                         <View
                             android:layout_width="0dp"
@@ -557,7 +558,7 @@
                         android:paddingTop="10dp">
 
                         <TextView
-                            android:id="@+id/stars_debsoc"
+                            android:id="@+id/likes_debsoc"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -573,7 +574,7 @@
                             android:layout_weight="0.8"
                             android:adjustViewBounds="true"
                             android:alpha="0.5"
-                            android:src="@drawable/ic_stars_black_24dp" />
+                            android:src="@drawable/ic_likes_black_24dp" />
 
                         <View
                             android:layout_width="0dp"
@@ -635,7 +636,7 @@
                         android:paddingTop="10dp">
 
                         <TextView
-                            android:id="@+id/stars_quiz"
+                            android:id="@+id/likes_quiz"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -651,7 +652,7 @@
                             android:layout_weight="0.8"
                             android:adjustViewBounds="true"
                             android:alpha="0.5"
-                            android:src="@drawable/ic_stars_black_24dp" />
+                            android:src="@drawable/ic_likes_black_24dp" />
 
                         <View
                             android:layout_width="0dp"
@@ -677,7 +678,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
 
                 <LinearLayout
@@ -721,7 +723,7 @@
                         android:paddingTop="10dp">
 
                         <TextView
-                            android:id="@+id/stars_bullethawk"
+                            android:id="@+id/likes_bullethawk"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -737,7 +739,7 @@
                             android:layout_weight="0.8"
                             android:adjustViewBounds="true"
                             android:alpha="0.5"
-                            android:src="@drawable/ic_stars_black_24dp" />
+                            android:src="@drawable/ic_likes_black_24dp" />
 
                         <View
                             android:layout_width="0dp"
@@ -799,7 +801,7 @@
                         android:paddingTop="10dp">
 
                         <TextView
-                            android:id="@+id/stars_rotaract"
+                            android:id="@+id/likes_rotaract"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -815,7 +817,7 @@
                             android:layout_weight="0.8"
                             android:adjustViewBounds="true"
                             android:alpha="0.5"
-                            android:src="@drawable/ic_stars_black_24dp" />
+                            android:src="@drawable/ic_likes_black_24dp" />
 
                         <View
                             android:layout_width="0dp"
@@ -880,7 +882,7 @@
                         android:paddingTop="10dp">
 
                         <TextView
-                            android:id="@+id/stars_enactus"
+                            android:id="@+id/likes_enactus"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -896,7 +898,7 @@
                             android:layout_weight="0.8"
                             android:adjustViewBounds="true"
                             android:alpha="0.5"
-                            android:src="@drawable/ic_stars_black_24dp" />
+                            android:src="@drawable/ic_likes_black_24dp" />
 
                         <View
                             android:layout_width="0dp"
@@ -962,7 +964,7 @@
                         android:paddingTop="10dp">
 
                         <TextView
-                            android:id="@+id/stars_aagaz"
+                            android:id="@+id/likes_aagaz"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -978,7 +980,7 @@
                             android:layout_weight="0.8"
                             android:adjustViewBounds="true"
                             android:alpha="0.5"
-                            android:src="@drawable/ic_stars_black_24dp" />
+                            android:src="@drawable/ic_likes_black_24dp" />
 
                         <View
                             android:layout_width="0dp"

@@ -13,39 +13,39 @@ import android.preference.PreferenceManager;
  */
 public class dbAdapter implements  Constant {
 
-    public static final String KEY_ROWID = "_id";
+    private static final String KEY_ROWID = "_id";
     public static final int COL_ROWID = 0;
 
-    public static final String KEY_LIST = "list";
+    private static final String KEY_LIST = "list";
     public static final int COL_LIST = 1;
 
-    public static final String KEY_LIST1 = "list1";
+    private static final String KEY_LIST1 = "list1";
     public static final int COL_LIST1 = 2;
 
-    public static final String KEY_LIST2 = "list2";
+    private static final String KEY_LIST2 = "list2";
     public static final int COL_LIST2 = 3;
 
-    public static final String KEY_LIST6 = "list6";
+    private static final String KEY_LIST6 = "list6";
     public static final int COL_LIST6 = 4;
 
-    public static final String KEY_LIST7 = "list7";
+    private static final String KEY_LIST7 = "list7";
     public static final int COL_LIST7 = 5;
 
-    public static final String KEY_LIST8 = "list8";
+    private static final String KEY_LIST8 = "list8";
     public static final int COL_LIST8 = 6;
 
-    public static final String KEY_LIST9 = "list9";
+    private static final String KEY_LIST9 = "list9";
     public static final int COL_LIST9 = 7;
 
-    public static final String KEY_SOC = "socName";
+    private static final String KEY_SOC = "socName";
     public static final int COL_SOC = 8;
 
     public static final String[] ALL_KEYS = new String[] {KEY_ROWID, KEY_LIST, KEY_LIST1, KEY_LIST2, KEY_LIST6, KEY_LIST7, KEY_LIST8, KEY_LIST9, KEY_SOC };
 
-    public static final String DATABASE_NAME = "NSITConnect";
-    public static final String DATABASE_TABLE = "myFeed";
+    private static final String DATABASE_NAME = "NSITConnect";
+    private static final String DATABASE_TABLE = "myFeed";
 
-    public static final long DATABASE_VERSION = 3;
+    private static final long DATABASE_VERSION = 3;
 
     private static final String DATABASE_CREATE_SQL =
             "create table " + DATABASE_TABLE
@@ -116,29 +116,29 @@ public class dbAdapter implements  Constant {
         String whereArgs = " IN (  ";
 
         if(pref.getBoolean(CROSSLINKS, false))
-            whereArgs+= (Val.id_crosslinks + ", ");
+            whereArgs+= ( id_crosslinks + ", ");
         if(pref.getBoolean(COLLEGESPACE, false))
-            whereArgs+= (Val.id_collegespace+ ", ");
+            whereArgs+= ( id_collegespace+ ", ");
         if(pref.getBoolean(BULLET, false))
-            whereArgs+= (Val.id_bullet+ ", ");
+            whereArgs+= ( id_bullet+ ", ");
         if(pref.getBoolean(ASHWA, false))
-            whereArgs+=(Val.id_ashwa+ ", ");
+            whereArgs+=( id_ashwa+ ", ");
         if(pref.getBoolean(JUNOON, false))
-            whereArgs+=(Val.id_junoon + ", ");
+            whereArgs+=( id_junoon + ", ");
         if(pref.getBoolean(ROTARACT, false))
-            whereArgs+=(Val.id_rotaract + ", ");
+            whereArgs+=( id_rotaract + ", ");
         if(pref.getBoolean(CSI, false))
-            whereArgs+=(Val.id_csi + ", ");
+            whereArgs+=( id_csi + ", ");
         if(pref.getBoolean(IEEE, false))
-            whereArgs+= (Val.id_ieee + ", ");
+            whereArgs+= ( id_ieee + ", ");
         if(pref.getBoolean(DEB, false))
-            whereArgs+= (Val.id_debsoc + ", ");
+            whereArgs+= ( id_debsoc + ", ");
         if(pref.getBoolean(QUIZ, false))
-            whereArgs+= (Val.id_quiz + ", ");
+            whereArgs+= ( id_quiz + ", ");
         if(pref.getBoolean(AAGAZ, false))
-            whereArgs+= (Val.id_aagaz + ", ");
+            whereArgs+= ( id_aagaz + ", ");
         if(pref.getBoolean(ENACTUS, false))
-            whereArgs+= (Val.id_enactus + ", ");
+            whereArgs+= ( id_enactus + ", ");
 
         whereArgs = whereArgs.substring(0,whereArgs.length()-2);
         whereArgs += " ) ";
@@ -152,7 +152,7 @@ public class dbAdapter implements  Constant {
 
 
     public Cursor getAllnsRows() {
-        String whereArgs = " IN (  "+Val.id_nsitonline +" )";
+        String whereArgs = " IN (  "+ id_nsitonline +" )";
         Cursor c = db.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE " + KEY_SOC + whereArgs, null);
         c.moveToFirst();
         return c;

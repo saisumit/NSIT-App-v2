@@ -16,12 +16,8 @@ import android.widget.Toast;
 
 public class CalculatorActivity extends Fragment {
 
-    Spinner s1;
-    Spinner s2;
-    ArrayAdapter<CharSequence> adapter;
-    ArrayAdapter<CharSequence> adapter1;
-    Button b;
-
+    private Spinner s1,s2;
+    private TextView tc10, tc11, tc12, tc9, tc4, tc5;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,14 +29,14 @@ public class CalculatorActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rooview = inflater.inflate(R.layout.activity_calculator, container, false);
         s1 = (Spinner) rooview.findViewById(R.id.spinb);
-        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.branch, android.R.layout.simple_list_item_1);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.branch, android.R.layout.simple_list_item_1);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s1.setAdapter(adapter);
-        b = (Button) rooview.findViewById(R.id.button);
+        Button b = (Button) rooview.findViewById(R.id.button);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), sub_load.class);
+                Intent i = new Intent(getActivity(), Sub_load.class);
                 startActivity(i);
 
             }
@@ -56,18 +52,17 @@ public class CalculatorActivity extends Fragment {
         });
 
 
-
-        final TextView tc10 = (TextView) rooview.findViewById(R.id.tv10);
-        final TextView tc11 = (TextView) rooview.findViewById(R.id.tv11);
-        final TextView tc12 = (TextView) rooview.findViewById(R.id.tv12);
-        final TextView tc9 = (TextView) rooview.findViewById(R.id.tv9);
-        final TextView tc4 = (TextView) rooview.findViewById(R.id.tv4);
-        final TextView tc5 = (TextView) rooview.findViewById(R.id.tv5);
-
-
+        tc10 = (TextView) rooview.findViewById(R.id.tv10);
+        tc11 = (TextView) rooview.findViewById(R.id.tv11);
+        tc12 = (TextView) rooview.findViewById(R.id.tv12);
+        tc9 = (TextView) rooview.findViewById(R.id.tv9);
+        tc4 = (TextView) rooview.findViewById(R.id.tv4);
+        tc5 = (TextView) rooview.findViewById(R.id.tv5);
         s2 = (Spinner) rooview.findViewById(R.id.spins);
-        adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.semester, android.R.layout.simple_list_item_1);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.semester, android.R.layout.simple_list_item_1);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
         s2.setAdapter(adapter1);
         s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -320,7 +315,7 @@ public class CalculatorActivity extends Fragment {
     }
 
 
-    public void cc(View rv) {
+    private void cc(View rv) {
 
         TextView c1 = (TextView) rv.findViewById(R.id.tv1);
         TextView c2 = (TextView) rv.findViewById(R.id.tv2);
@@ -352,7 +347,7 @@ public class CalculatorActivity extends Fragment {
     }
 
 
-    public void onCalculate(View a) {
+    private void onCalculate(View a) {
 
         double n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11, n12;
         EditText t1 = (EditText) a.findViewById(R.id.one);
@@ -375,508 +370,642 @@ public class CalculatorActivity extends Fragment {
         if (s1.getSelectedItem().toString().equals("COE")) {
             if (s2.getSelectedItem().toString().equals("Sem 1")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
 
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = (3 * n6) + 2 * (n7 + n8 + n9);
-                p = (tux + pux) / 29;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = (3 * n6) + 2 * (n7 + n8 + n9);
+                    p = (tux + pux) / 29;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 2")) {
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
 
 
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9);
+                    p = (tux + pux) / 28;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9);
-                p = (tux + pux) / 28;
+                }
 
 
             } else if (s2.getSelectedItem().toString().equals("Sem 3")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n10 = Double.parseDouble(t10.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
-                n12 = Double.parseDouble(t12.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n10 = Double.parseDouble(t10.getText().toString());
 
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8) + (3 * n9);
-                p = (tux + pux + n10) / 30;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8) + (3 * n9);
+                    p = (tux + pux + n10) / 30;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
 
             } else if (s2.getSelectedItem().toString().equals("Sem 4")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n10 = Double.parseDouble(t10.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
-                n12 = Double.parseDouble(t12.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n10 = Double.parseDouble(t10.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
+                    n12 = Double.parseDouble(t12.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9 + n10);
-                p = (tux + pux + n11 + n12) / 32;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9 + n10);
+                    p = (tux + pux + n11 + n12) / 32;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
 
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 5")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8);
-                p = (tux + pux + n11) / 27;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8);
+                    p = (tux + pux + n11) / 27;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
 
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 6")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
-                n12 = Double.parseDouble(t12.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
+                    n12 = Double.parseDouble(t12.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n12);
-                p = (tux + pux + n11) / 29;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n12);
+                    p = (tux + pux + n11) / 29;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
 
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 7")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
 
-                n11 = Double.parseDouble(t11.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
 
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8) + 3 * n9;
+                    p = (tux + pux + n11) / 30;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8) + 3 * n9;
-                p = (tux + pux + n11) / 30;
-
+                }
             } else if (s2.getSelectedItem().toString().equals("Sem 8")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
 
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
 
-                n11 = Double.parseDouble(t11.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
 
-                tux = 4 * (n1 + n2 + n3);
-                pux = (2 * n6) + (8 * n7) + (4 * n8);
-                p = (tux + pux + n11) / 27;
+                    tux = 4 * (n1 + n2 + n3);
+                    pux = (2 * n6) + (8 * n7) + (4 * n8);
+                    p = (tux + pux + n11) / 27;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
             }
 
         } else if (s1.getSelectedItem().toString().equals("IT")) {
             if (s2.getSelectedItem().toString().equals("Sem 1")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = (3 * n6) + 2 * (n7 + n8 + n9);
-                p = (tux + pux) / 29;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = (3 * n6) + 2 * (n7 + n8 + n9);
+                    p = (tux + pux) / 29;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 2")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9);
-                p = (tux + pux) / 28;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9);
+                    p = (tux + pux) / 28;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 3")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8);
-                p = (tux + pux + n11) / 27;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8);
+                    p = (tux + pux + n11) / 27;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
 
+                }
             } else if (s2.getSelectedItem().toString().equals("Sem 4")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n10 = Double.parseDouble(t10.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n10 = Double.parseDouble(t10.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9 + n10);
-                p = (tux + pux) / 30;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9 + n10);
+                    p = (tux + pux) / 30;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
             } else if (s2.getSelectedItem().toString().equals("Sem 5")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
 
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8);
+                    p = (tux + pux + n11) / 27;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8);
-                p = (tux + pux + n11) / 27;
+                }
             } else if (s2.getSelectedItem().toString().equals("Sem 6")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9);
-                p = (tux + pux + n11) / 29;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9);
+                    p = (tux + pux + n11) / 29;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
             } else if (s2.getSelectedItem().toString().equals("Sem 7")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
-                n12 = Double.parseDouble(t12.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
+                    n12 = Double.parseDouble(t12.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9 + n12) + (4 * n11);
-                p = (tux + pux) / 34;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9 + n12) + (4 * n11);
+                    p = (tux + pux) / 34;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
 
             } else if (s2.getSelectedItem().toString().equals("Sem 8")) {
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3);
-                pux = (2 * n6) + (8 * n7) + (4 * n8) + (2 * n11);
-                p = (tux + pux) / 28;
+                    tux = 4 * (n1 + n2 + n3);
+                    pux = (2 * n6) + (8 * n7) + (4 * n8) + (2 * n11);
+                    p = (tux + pux) / 28;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
             }
 
         } else if (s1.getSelectedItem().toString().equals("MPAE")) {
 
             if (s2.getSelectedItem().toString().equals("Sem 1")) {
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = (3 * n6) + 2 * (n7 + n8 + n9);
-                p = (tux + pux) / 29;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = (3 * n6) + 2 * (n7 + n8 + n9);
+                    p = (tux + pux) / 29;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
             } else if (s2.getSelectedItem().toString().equals("Sem 2")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9);
-                p = (tux + pux + n11) / 29;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9);
+                    p = (tux + pux + n11) / 29;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 3")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9);
-                p = (tux + pux + n11) / 29;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9);
+                    p = (tux + pux + n11) / 29;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 4")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
-                n12 = Double.parseDouble(t12.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
+                    n12 = Double.parseDouble(t12.getText().toString());
 
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9);
-                p = (tux + pux + n11 + n12) / 30;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9);
+                    p = (tux + pux + n11 + n12) / 30;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 5")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9);
-                p = (tux + pux + n11) / 29;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9);
+                    p = (tux + pux + n11) / 29;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 6")) {
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
+                    n12 = Double.parseDouble(t12.getText().toString());
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
-                n12 = Double.parseDouble(t12.getText().toString());
 
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9);
+                    p = (tux + pux + n11 + n12) / 30;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9);
-                p = (tux + pux + n11 + n12) / 30;
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 7")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9);
-                p = (tux + pux + n11) / 29;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9);
+                    p = (tux + pux + n11) / 29;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 8")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3);
-                pux = 2 * (n6 + n7) + (8 * n8) + (2 * n9);
-                p = (tux + pux + n11) / 27;
+                    tux = 4 * (n1 + n2 + n3);
+                    pux = 2 * (n6 + n7) + (8 * n8) + (2 * n9);
+                    p = (tux + pux + n11) / 27;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
             }
 
         } else if (s1.getSelectedItem().toString().equals("ECE"))  // 6, 7, 8 Credits not found false data taken
         {
 
             if (s2.getSelectedItem().toString().equals("Sem 1")) {
+                try {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = (3 * n6) + 2 * (n7 + n8 + n9);
-                p = (tux + pux) / 29;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = (3 * n6) + 2 * (n7 + n8 + n9);
+                    p = (tux + pux) / 29;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
             } else if (s2.getSelectedItem().toString().equals("Sem 2")) {
+                try {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5 + n8);
-                pux = 2 * (n6 + n7 + n9);
-                p = (tux + pux) / 30;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5 + n8);
+                    pux = 2 * (n6 + n7 + n9);
+                    p = (tux + pux) / 30;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
             } else if (s2.getSelectedItem().toString().equals("Sem 3")) {
+                try {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8) + 3 * n9;
-                p = (tux + pux + n11) / 30;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8) + 3 * n9;
+                    p = (tux + pux + n11) / 30;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
             } else if (s2.getSelectedItem().toString().equals("Sem 4")) {
 
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n10 = Double.parseDouble(t10.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
-                n12 = Double.parseDouble(t12.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n10 = Double.parseDouble(t10.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
+                    n12 = Double.parseDouble(t12.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9 + n10);
-                p = (tux + pux + n11 + n12) / 32;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9 + n10);
+                    p = (tux + pux + n11 + n12) / 32;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 5")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8);
-                p = (tux + pux + n11) / 27;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8);
+                    p = (tux + pux + n11) / 27;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
 
             } else if (s2.getSelectedItem().toString().equals("Sem 6")) {
@@ -908,106 +1037,136 @@ public class CalculatorActivity extends Fragment {
 
 
             if (s2.getSelectedItem().toString().equals("Sem 1")) {
+                try {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = (3 * n6) + 2 * (n7 + n8 + n9);
-                p = (tux + pux) / 29;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = (3 * n6) + 2 * (n7 + n8 + n9);
+                    p = (tux + pux) / 29;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
             } else if (s2.getSelectedItem().toString().equals("Sem 2")) {
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9);
-                p = (tux + pux) / 28;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9);
+                    p = (tux + pux) / 28;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
 
             } else if (s2.getSelectedItem().toString().equals("Sem 3")) {
+                try {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
 
-                n11 = Double.parseDouble(t11.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8) + 3 * n9;
-                p = (tux + pux + n11) / 30;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8) + 3 * n9;
+                    p = (tux + pux + n11) / 30;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
 
             } else if (s2.getSelectedItem().toString().equals("Sem 4")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                n10 = Double.parseDouble(t10.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
-                n12 = Double.parseDouble(t12.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    n10 = Double.parseDouble(t10.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
+                    n12 = Double.parseDouble(t12.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9 + n10);
-                p = (tux + pux + n11 + n12) / 32;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9 + n10);
+                    p = (tux + pux + n11 + n12) / 32;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 5")) {
+                try {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8);
-                p = (tux + pux + n11) / 27;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8);
+                    p = (tux + pux + n11) / 27;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
 
             } else if (s2.getSelectedItem().toString().equals("Sem 6")) {
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
-                n12 = Double.parseDouble(t12.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
+                    n12 = Double.parseDouble(t12.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n12);
-                p = (tux + pux + n11) / 29;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n12);
+                    p = (tux + pux + n11) / 29;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
 
             } else if (s2.getSelectedItem().toString().equals("Sem 7")) {
@@ -1022,98 +1181,127 @@ public class CalculatorActivity extends Fragment {
         {
 
             if (s2.getSelectedItem().toString().equals("Sem 1")) {
+                try {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = (3 * n6) + 2 * (n7 + n8 + n9);
-                p = (tux + pux) / 29;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = (3 * n6) + 2 * (n7 + n8 + n9);
+                    p = (tux + pux) / 29;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 2")) {
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9);
-                p = (tux + pux) / 28;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9);
+                    p = (tux + pux) / 28;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
 
             } else if (s2.getSelectedItem().toString().equals("Sem 3")) {
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n9);
-                p = (tux + pux) / 28;
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n9);
+                    p = (tux + pux) / 28;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
 
             } else if (s2.getSelectedItem().toString().equals("Sem 4")) {
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n11);
+                    p = (tux + pux) / 28;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n11);
-                p = (tux + pux) / 28;
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 5")) {
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n11 = Double.parseDouble(t11.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n11 = Double.parseDouble(t11.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8 + n11);
-                p = (tux + pux) / 30;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8 + n11);
+                    p = (tux + pux) / 30;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
             } else if (s2.getSelectedItem().toString().equals("Sem 6")) {
-                n1 = Double.parseDouble(t1.getText().toString());
-                n2 = Double.parseDouble(t2.getText().toString());
-                n3 = Double.parseDouble(t3.getText().toString());
-                n4 = Double.parseDouble(t4.getText().toString());
-                n5 = Double.parseDouble(t5.getText().toString());
-                n6 = Double.parseDouble(t6.getText().toString());
-                n7 = Double.parseDouble(t7.getText().toString());
-                n8 = Double.parseDouble(t8.getText().toString());
-                n9 = Double.parseDouble(t9.getText().toString());
+                try {
+                    n1 = Double.parseDouble(t1.getText().toString());
+                    n2 = Double.parseDouble(t2.getText().toString());
+                    n3 = Double.parseDouble(t3.getText().toString());
+                    n4 = Double.parseDouble(t4.getText().toString());
+                    n5 = Double.parseDouble(t5.getText().toString());
+                    n6 = Double.parseDouble(t6.getText().toString());
+                    n7 = Double.parseDouble(t7.getText().toString());
+                    n8 = Double.parseDouble(t8.getText().toString());
+                    n9 = Double.parseDouble(t9.getText().toString());
 
-                tux = 4 * (n1 + n2 + n3 + n4 + n5);
-                pux = 2 * (n6 + n7 + n8);
-                p = (tux + pux + n9) / 28;
+                    tux = 4 * (n1 + n2 + n3 + n4 + n5);
+                    pux = 2 * (n6 + n7 + n8);
+                    p = (tux + pux + n9) / 28;
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Fill out all the highlighted fields.", Toast.LENGTH_LONG).show();
+
+                }
 
 
             } else if (s2.getSelectedItem().toString().equals("Sem 7")) {

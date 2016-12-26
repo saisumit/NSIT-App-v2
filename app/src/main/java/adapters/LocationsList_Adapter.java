@@ -10,7 +10,6 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,28 +21,16 @@ import nsit.app.com.nsitapp.R;
 /**
  * Created by Sidharth Patro on 22-Jun-15.
  */
-public class LocationsList_Adapter extends BaseExpandableListAdapter {
+class LocationsList_Adapter extends BaseExpandableListAdapter {
 
-    Context context;
-    ArrayList<Locations.LocationGroup> LocationItems = new ArrayList<>();
-    ArrayList<Locations.Location> LocationGroupItems = new ArrayList<>();
-    public int groupClicked;
-
-    private static LayoutInflater inflater = null;
-    ExpandableListView listView;
-    public static int lastExpandedGroupPosition = -1;
+    private Context context;
+    private ArrayList<Locations.LocationGroup> LocationItems = new ArrayList<>();
+    private static int lastExpandedGroupPosition = -1;
 
 
-    public void setGroupClicked(int groupPosition) {
-        groupClicked = groupPosition;
-    }
-
-    public LocationsList_Adapter(Context context, ArrayList<Locations.LocationGroup> LocationItems, ArrayList<Locations.Location> LocationGroupItems) {
+    public LocationsList_Adapter(Context context, ArrayList<Locations.LocationGroup> LocationItems) {
         this.context = context;
         this.LocationItems = LocationItems;
-        this.LocationGroupItems = LocationGroupItems;
-        inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
@@ -87,13 +74,11 @@ public class LocationsList_Adapter extends BaseExpandableListAdapter {
         Locations.LocationGroup LocGroup = getGroup(groupPosition);
         String headerTitle = LocGroup.GroupHeader;
         String groupType = LocGroup.GroupType;
-        listView = (ExpandableListView) parent;
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.location_listitem, null);
+            convertView = infalInflater.inflate(R.layout.location_listitem, parent, false);
         }
-        this.listView = (ExpandableListView) parent;
 
         TextView GroupHeader = (TextView) convertView
                 .findViewById(R.id.LocationsGroupHeader);
@@ -140,7 +125,7 @@ public class LocationsList_Adapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.locationgroup_listitem, null);
+            convertView = infalInflater.inflate(R.layout.locationgroup_listitem, parent, false);
         }
 
         TextView txtHeader = (TextView) convertView.findViewById(R.id.LocationItem);

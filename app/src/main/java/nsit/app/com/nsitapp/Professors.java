@@ -33,12 +33,12 @@ public class Professors extends Fragment implements
         AdapterView.OnItemClickListener {
 
 
-    public static final String[] titles = new String[]{"DM", "DC", "DP",
+    private static final String[] titles = new String[]{"DM", "DC", "DP",
             "DM", "H&M",
             "ECE",
             "COE", "ICE", "MPAE", "IT", "BT", "SAS"};
 
-    public static final String[] full = new String[]{
+    private static final String[] full = new String[]{
             "DEPARTMENT OF MANAGEMENT", "DEPARTMENT OF CHEMISTRY", "DEPARTMENT OF PHYSICS",
             "DEPARTMENT OF MATHS", "School Of Humanities & Management",
             "Division Of Electronics & Communication Engg",
@@ -48,8 +48,8 @@ public class Professors extends Fragment implements
             "Division Of Bio-Technology", "School Of Applied Sciences"
     };
 
-    ListView listView;
-    List<RowItem> rowItems;
+    private ListView listView;
+    private List<RowItem> rowItems;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class Professors extends Fragment implements
 
     }
 
-    Activity activity;
+    private Activity activity;
 
     @Override
     public void onAttach(Activity activity) {
@@ -72,14 +72,16 @@ public class Professors extends Fragment implements
 
 
         rowItems = new ArrayList<RowItem>();
-        for (int i = 0; i < titles.length; i++) {
+
+        int len1 = titles.length;
+        for (int i = 0; i < len1; i++) {
             RowItem item = new RowItem(titles[i].toUpperCase(), full[i]);
             rowItems.add(item);
         }
 
         listView = (ListView) rootView.findViewById(R.id.list);
         CustomListViewAdapter adapter = new CustomListViewAdapter(activity,
-                R.layout.department_list_item, rowItems);
+                rowItems);
         if (activity != null)
             listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
@@ -104,9 +106,9 @@ public class Professors extends Fragment implements
 
         Context context;
 
-        public CustomListViewAdapter(Context context, int resourceId,
+        public CustomListViewAdapter(Context context,
                                      List<RowItem> items) {
-            super(context, resourceId, items);
+            super(context, R.layout.department_list_item, items);
             this.context = context;
         }
 
@@ -118,12 +120,12 @@ public class Professors extends Fragment implements
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
+            ViewHolder holder;
             RowItem rowItem = getItem(position);
 
             LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             if (convertView == null) {
-                convertView = mInflater.inflate(R.layout.department_list_item, null);
+                convertView = mInflater.inflate(R.layout.department_list_item, parent, false);
                 holder = new ViewHolder();
                 holder.txtDesc = (TextView) convertView.findViewById(R.id.desc);
                 holder.txtTitle = (TextView) convertView.findViewById(R.id.title);

@@ -5,46 +5,42 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'com.android.tools.build:gradle:2.0.0'
     }
 }
 
 repositories {
     mavenCentral()
 }
+
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
     defaultConfig {
         applicationId "nsit.app.com.nsitapp"
-        minSdkVersion 12
-        targetSdkVersion 22
-        versionCode 21
-        versionName "2.3"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 26
+        versionName "2.5"
     }
-  
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-  
 }
-
 
 dependencies {
     compile 'org.lucasr.twowayview:twowayview:0.1.4'
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile group:'org.jsoup',name:'jsoup',version:'1.8.3'
-    compile project(':YouTubeAndroidPlayerApi')
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.8.3'
     compile 'com.google.android.gms:play-services-maps:7.5.0'
     compile 'com.google.android.gms:play-services-location:7.5.0'
     compile 'com.nispok:snackbar:2.10.+'
-
-
-
+    compile files('libs/YouTubeAndroidPlayerApi.jar')
 }

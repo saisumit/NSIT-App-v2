@@ -29,7 +29,8 @@ import nsit.app.com.nsitapp.R;
 import nsit.app.com.nsitapp.data.ContestContract;
 import nsit.app.com.nsitapp.model.Contest;
 import nsit.app.com.nsitapp.model.OnlineJudge;
-import nsit.app.com.nsitapp.utility.TimeUtil;
+
+import static functions.Utils.getReadableDurationFromMillis;
 
 
 /**
@@ -74,14 +75,12 @@ public class ContestDetailFragment extends Fragment
     };
 
     public static final int COLUMN_ID = 0;
-    public static final int COLUMN_TITLE = 1;
-    public static final int COLUMN_SOURCE = 2;
-    public static final int COLUMN_DESCRIPTION = 3;
-    public static final int COLUMN_START_TIME = 4;
-    public static final int COLUMN_END_TIME = 5;
-    public static final int COLUMN_URL = 6;
-
-    private int LOADER_ID = 0;
+    private static final int COLUMN_TITLE = 1;
+    private static final int COLUMN_SOURCE = 2;
+    private static final int COLUMN_DESCRIPTION = 3;
+    private static final int COLUMN_START_TIME = 4;
+    private static final int COLUMN_END_TIME = 5;
+    private static final int COLUMN_URL = 6;
 
     /**
      * Use this factory method to create a new instance of
@@ -106,7 +105,7 @@ public class ContestDetailFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mContestUri = (Uri) getArguments().getParcelable(CONTEST_DETAIL_URI);
+            mContestUri = getArguments().getParcelable(CONTEST_DETAIL_URI);
         }
         setRetainInstance(true);
         mContest = new Contest();
@@ -125,6 +124,7 @@ public class ContestDetailFragment extends Fragment
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        int LOADER_ID = 0;
         getLoaderManager().initLoader(LOADER_ID, null, this);
         super.onActivityCreated(savedInstanceState);
     }
@@ -133,7 +133,7 @@ public class ContestDetailFragment extends Fragment
 
         mOJCover = (RelativeLayout) view.findViewById(R.id.onlineJudge_cover);
 
-        mBanner = (View) view.findViewById(R.id.banner);
+        mBanner = view.findViewById(R.id.banner);
 
         mOJIcon = (ImageView) view.findViewById(R.id.onlineJudge_icon);
 
@@ -195,10 +195,10 @@ public class ContestDetailFragment extends Fragment
             mStartTimeText.setText(sdf.format(date));
 
             Long durationMillis = mContest.getFinishDate() - mContest.getStartDate();
-            mDurationText.setText(TimeUtil.getReadableDurationFromMillis(durationMillis));
+            mDurationText.setText(getReadableDurationFromMillis(durationMillis));
 
             if (mContest.getURL().equals("")) {
-                mURLText.setText("No url available");
+                mURLText.setText(R.string.no_url);
             } else {
                 mURLText.setText(mContest.getURL());
             }

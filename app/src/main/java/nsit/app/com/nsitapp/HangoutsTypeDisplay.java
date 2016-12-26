@@ -30,15 +30,13 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import functions.GPSTracker;
@@ -64,10 +62,8 @@ public class HangoutsTypeDisplay extends AppCompatActivity {
     private int choice = -1;
     private int progress = 0;
     private ProgressBar progressBar;
-    private ListView display_list;
     private ArrayList<HangoutTypeObject> objects ;
     private HangoutTypeAdapter displayAdapter;
-    private SeekBar radiusSeekBar;
     private TextView radiusTextView;
 
 
@@ -81,7 +77,7 @@ public class HangoutsTypeDisplay extends AppCompatActivity {
         getSupportActionBar().setIcon(R.drawable.ic_people_white_36dp);
         objects = new ArrayList<HangoutTypeObject>();
 
-        display_list = (ListView)findViewById(R.id.hangout_type_display_list);
+        ListView display_list = (ListView) findViewById(R.id.hangout_type_display_list);
         displayAdapter = new HangoutTypeAdapter(this,objects);
         display_list.setAdapter(displayAdapter);
 
@@ -121,10 +117,10 @@ public class HangoutsTypeDisplay extends AppCompatActivity {
         return  super.onOptionsItemSelected(item);
     }
 
-    public void setradiusvalue(){
+    private void setradiusvalue(){
         AlertDialog.Builder alert = new AlertDialog.Builder(HangoutsTypeDisplay.this);
         final View radiusview = getLayoutInflater().inflate(R.layout.raduis_layout,null);
-        radiusSeekBar = (SeekBar)radiusview.findViewById(R.id.radius_seek);
+        SeekBar radiusSeekBar = (SeekBar) radiusview.findViewById(R.id.radius_seek);
         radiusTextView = (TextView)radiusview.findViewById(R.id.radius_display);
         radiusSeekBar.setProgress(radius);
         radiusTextView.setText("Radius :"+radius+"(m)");
@@ -170,7 +166,7 @@ public class HangoutsTypeDisplay extends AppCompatActivity {
         HttpGetInfo(){
             text = null;
            GPSTracker gpsGetLocation = new GPSTracker(HangoutsTypeDisplay.this);
-            if (gpsGetLocation.canGetLocation() == true)
+            if (gpsGetLocation.canGetLocation())
                 URL = MAIN_HTTP + NEARBYPLACES +LOCATION + gpsGetLocation.getLatitude() + "," + gpsGetLocation.getLongitude()
                         + RADIUS + String.valueOf(radius) + TYPE + searches[choice] + KEY;
         }
@@ -184,16 +180,21 @@ public class HangoutsTypeDisplay extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            if(URL!=null){
-                HttpClient Client = new DefaultHttpClient();
-                HttpGet httpget = new HttpGet(URL);
-                ResponseHandler<String> responseHandler = new BasicResponseHandler();
-                try {
-                    text = Client.execute(httpget, responseHandler);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }}
+            if(URL == null)
+                return null;
+            String uri = URL;
+            java.net.URL url;
+            try {
+                url = new URL(uri);
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                text = Utils.readStream(con.getInputStream());
+            } catch (MalformedURLException e1) {
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             return null;
+
         }
 
         @Override
@@ -214,17 +215,17 @@ public class HangoutsTypeDisplay extends AppCompatActivity {
                     try {
 
 
-                        String name = null;
-                        String icon = null;
-                        String place_id = null;
-                        String phtotref = null;
+                        String name;
+                        String icon;
+                        String place_id;
+                        String phtotref;
                         String longi = null;
                         String latti = null;
-                        String vicinity = null;
+                        String vicinity;
                         boolean opennow = false;
-                        float photowidth = 0;
-                        float photoheight = 0;
-                        float rating = -1;
+                        float photowidth;
+                        float photoheight;
+                        float rating;
 
                         if (jplacearray.getJSONObject(i).has("icon"))
                             icon = jplacearray.getJSONObject(i).getString("icon");
@@ -270,10 +271,7 @@ public class HangoutsTypeDisplay extends AppCompatActivity {
 
                         if (jplacearray.getJSONObject(i).has("opening_hours")){
                             String bool = jplacearray.getJSONObject(i).getJSONObject("opening_hours").getString("open_now");
-                            if (bool.equals("false"))
-                                opennow = false;
-                            else
-                                opennow = true;
+                            opennow = !bool.equals("false");
                         }
 
                         objects.add(new HangoutTypeObject(name, icon, place_id, phtotref, longi, latti,vicinity, opennow, photowidth, photoheight, rating));
@@ -321,7 +319,7 @@ public class HangoutsTypeDisplay extends AppCompatActivity {
 
             if (convertview == null){
                 LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertview = inflater.inflate(R.layout.hangouttype_listitem,null);
+                convertview = inflater.inflate(R.layout.hangouttype_listitem,viewGroup, false);
                 holder.placephoto = (ImageView)convertview.findViewById(R.id.hangottype_photo);
                 holder.placename = (TextView)convertview.findViewById(R.id.title_hangout_type);
                 holder.vicinity = (TextView)convertview.findViewById(R.id.vicinity);

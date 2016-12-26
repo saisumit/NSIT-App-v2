@@ -25,45 +25,43 @@ import android.widget.ProgressBar;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import adapters.CustomList;
+import functions.Constant;
 import functions.Utils;
-import functions.Val;
 import functions.dbAdapter;
 
 
-public class Home extends Fragment {
+public class Home extends Fragment implements Constant {
 
-    boolean loadingMore = false;
-    dbAdapter db ;
+    private boolean loadingMore = false;
+    private dbAdapter db;
 
-    List<String> list = new ArrayList<String>();
-    List<String> list1 = new ArrayList<String>();
-    List<String> list2 = new ArrayList<String>();
-    List<String> list6 = new ArrayList<String>();
-    List<String> list7 = new ArrayList<String>();
-    List<String> list8 = new ArrayList<String>();
-    ListView lv;
-    int first = 1;
-    SwipeRefreshLayout swipeLayout;
-    ProgressBar pb;
-    String next = "https://graph.facebook.com/" + Val.id_nsitonline + "/posts?limit=20&fields=id,picture,from,shares,message," +
-            "object_id,link,created_time,comments.limit(0).summary(true),likes.limit(0).summary(true)"+
-            "&access_token=" + Val.common_access;
-    CustomList adapter;
-    View footerView;
-    int listCount;
+    private List<String> list = new ArrayList<String>();
+    private List<String> list1 = new ArrayList<String>();
+    private List<String> list2 = new ArrayList<String>();
+    private List<String> list6 = new ArrayList<String>();
+    private List<String> list7 = new ArrayList<String>();
+    private List<String> list8 = new ArrayList<String>();
+    private ListView lv;
+    private int first = 1;
+    private SwipeRefreshLayout swipeLayout;
+    private ProgressBar pb;
+    private String next = "https://graph.facebook.com/" + id_nsitonline + "/posts?limit=20&fields=id,picture,from,shares,message," +
+            "object_id,link,created_time,comments.limit(0).summary(true),likes.limit(0).summary(true)" +
+            "&access_token=" + common_access;
+    private CustomList adapter;
+    private View footerView;
+    private int listCount;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,7 +69,7 @@ public class Home extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    Activity activity;
+    private Activity activity;
 
     @Override
     public void onAttach(Activity activity) {
@@ -93,7 +91,7 @@ public class Home extends Fragment {
         swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
         pb = (ProgressBar) rootView.findViewById(R.id.progressBar1);
         adapter = new CustomList(activity, list6, list, list2, list7, list1, list8);
-        footerView = ((LayoutInflater) activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footer_layout, null, false);
+        footerView = ((LayoutInflater) activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footer_layout, container, false);
 
 
         lv.setAdapter(adapter);
@@ -112,18 +110,18 @@ public class Home extends Fragment {
                     if ((lastInScreen == totalItemCount) && !(loadingMore) && first != 1) {
                         loadingMore = true;
                         lv.addFooterView(footerView);
-                        new DownloadWebPageTask3(Val.id_nsitonline).execute();
+                        new DownloadWebPageTask3().execute();
                         listCount = lastInScreen;
                     }
 
                 }
             });
-            new DownloadWebPageTask3(Val.id_nsitonline).execute();
+            new DownloadWebPageTask3().execute();
         } else {
             show_off();
             SnackbarManager.show(
                     Snackbar.with(activity.getApplicationContext())
-                            .text("No Your Internet Connection")
+                            .text(R.string.internet_error)
                             .duration(Snackbar.SnackbarDuration.LENGTH_SHORT), activity);
 
         }
@@ -131,7 +129,7 @@ public class Home extends Fragment {
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new DownloadWebPageTask3(Val.id_nsitonline).execute();
+                new DownloadWebPageTask3().execute();
             }
         });
         swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
@@ -144,12 +142,11 @@ public class Home extends Fragment {
     }
 
 
-
     private class DownloadWebPageTask3 extends AsyncTask<String, Void, String> {
         String id;
 
-        public DownloadWebPageTask3(String id) {
-            this.id = id;
+        public DownloadWebPageTask3() {
+            this.id = Constant.id_nsitonline;
         }
 
         @Override
@@ -160,28 +157,28 @@ public class Home extends Fragment {
         @Override
         protected String doInBackground(String... urls) {
 
-            String URL;
 
-            URL = next;
-            String text = "";
-            if (URL != null) {
-                HttpClient Client = new DefaultHttpClient();
-                HttpGet httpget = new HttpGet(URL);
-                ResponseHandler<String> responseHandler = new BasicResponseHandler();
-                try {
-                    text = Client.execute(httpget, responseHandler);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            String uri = next;
+            java.net.URL url;
+            String readStream = null;
+            try {
+                url = new URL(uri);
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                readStream = Utils.readStream(con.getInputStream());
+            } catch (MalformedURLException e1) {
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
 
-            return text;
+            return readStream;
+
+
         }
 
         @Override
         protected void onPostExecute(String result) {
             pb.setVisibility(View.GONE);
-            int j = 0;
             JSONObject ob, ob2;
             JSONArray arr;
             db.deleteAll();
@@ -190,8 +187,8 @@ public class Home extends Fragment {
                     ob = new JSONObject(result);
                     arr = ob.getJSONArray("data");
 
-
-                    for (int i = 0; i < arr.length(); i++) {
+                    int len  = arr.length();
+                    for (int i = 0; i < len; i++) {
 
                         String s2 = arr.getJSONObject(i).getString("from");
                         ob2 = new JSONObject(s2);
@@ -220,7 +217,6 @@ public class Home extends Fragment {
                         if (arr.getJSONObject(i).has("likes")) {
                             String s = arr.getJSONObject(i).getString("likes");
                             JSONObject o = new JSONObject(s);
-                            JSONArray a2 = o.getJSONArray("data");
                             String x = o.getString("summary");
                             JSONObject o2 = new JSONObject(x);
 
@@ -234,7 +230,7 @@ public class Home extends Fragment {
                             list8.add(null);
 
 
-                        db.insertRow(list.get(i), list1.get(i), list2.get(i), list6.get(i), list7.get(i), list8.get(i),null, Val.id_nsitonline);
+                        db.insertRow(list.get(i), list1.get(i), list2.get(i), list6.get(i), list7.get(i), list8.get(i), null, id_nsitonline);
 
 
                     }
@@ -259,27 +255,25 @@ public class Home extends Fragment {
     }
 
 
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_home_notification,menu);
+        inflater.inflate(R.menu.menu_home_notification, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.notification_settings){
+        if (item.getItemId() == R.id.notification_settings) {
             Intent intent = new Intent(getActivity(), NotificationSettings.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void show_off() {
+    private void show_off() {
 
         Cursor c = db.getAllnsRows();
-        if(c==null)
+        if (c == null)
             return;
         try {
             do {
@@ -291,7 +285,7 @@ public class Home extends Fragment {
                 list8.add(c.getString(6));
             } while (c.moveToNext());
             pb.setVisibility(View.GONE);
-        }catch (Exception e){
+        } catch (Exception e) {
         }
         adapter.notifyDataSetChanged();
     }

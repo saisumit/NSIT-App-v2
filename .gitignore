@@ -9,7 +9,9 @@ build.gradle
 app/build.gradle
 .idea/ app/build.gradle
 /app/src/main/AndroidManifest.xml
+/app/src/main/java/functions/Constant.java
 
+.idea
 
 app/src/main/res/drawable/1.png
 app/src/main/res/drawable/2.png
@@ -43,20 +45,16 @@ local.properties
 # Windows thumbnail db
 Thumbs.db
 
-# OSX files
-.DS_Store
-
 # Eclipse project files
 .classpath
 .project
 
 # Android Studio
 *.iml
-.idea
 #.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
-.gradle
 build/
 
 #NDK
 obj/
+
 

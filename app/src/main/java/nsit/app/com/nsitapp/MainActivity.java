@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -20,7 +19,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,25 +31,20 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import nsit.app.com.nsitapp.PushNotification.MyAlarmReceiver;
-import nsit.app.com.nsitapp.PushNotification.NotificationAdapter;
-import nsit.app.com.nsitapp.view.contest_reminder;
+import nsit.app.com.nsitapp.view.CodeRadar_MainActivity;
 
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    ListView lv;
     private ActionBarDrawerToggle mDrawerToggle;
-    static final String[] sideitems = new String[]{"Home", "My Feed", "Video", "TimeTable", "Locations",
+    private static final String[] sideitems = new String[]{"Home", "My Feed", "Video", "TimeTable", "Locations",
             "Calculator", "CodeRadar", "Professors", "Feedback", "About Us"};    //items on navigation drawer
-    SwipeRefreshLayout swipeLayout;
-    Fragment current;
+    private Fragment current;
 
 
-    Integer[] imageId = {
+    private Integer[] imageId = {
             R.drawable.ic_action_home,
             R.drawable.ic_action_tiles_large,
             R.drawable.ic_action_video,
@@ -81,15 +74,12 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Home");
             ft.commit();
         }
-        lv = (ListView) findViewById(R.id.list);
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
-        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-
+        ListView mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         //All for navigation drawer
-        DrawerList_Adapter adapter2 = new DrawerList_Adapter(this, sideitems, imageId);
+        DrawerList_Adapter adapter2 = new DrawerList_Adapter(this, imageId);
         mDrawerList.setAdapter(adapter2);
         try {
             mDrawerToggle = new ActionBarDrawerToggle(
@@ -210,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle("Calculator");
                 break;
             case 7:
-                i = new Intent(this, contest_reminder.class);
+                i = new Intent(this, CodeRadar_MainActivity.class);
                 startActivity(i);
                 break;
             case 8:
@@ -236,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
-    public void scheduleAlarm() {
+    private void scheduleAlarm() {
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         boolean status = sp.getBoolean("notification_status",true);
@@ -256,13 +246,12 @@ public class MainActivity extends AppCompatActivity {
     public class DrawerList_Adapter extends ArrayAdapter<String> {
         private final Activity context;
         private final String[] web;
-        private boolean isSpeakButtonLongPressed;
         private final Integer[] imageId;
 
-        public DrawerList_Adapter(Activity context, String[] web, Integer[] imageId) {
-            super(context, R.layout.message, web);
+        public DrawerList_Adapter(Activity context, Integer[] imageId) {
+            super(context, R.layout.message, MainActivity.sideitems);
             this.context = context;
-            this.web = web;
+            this.web = MainActivity.sideitems;
             this.imageId = imageId;
         }
 
@@ -273,10 +262,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View view, ViewGroup parent) {
-            ViewHolder holder = null;
+            ViewHolder holder;
             LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             if (view == null) {
-                view = mInflater.inflate(R.layout.message, null);
+                view = mInflater.inflate(R.layout.message, parent, false);
                 holder = new ViewHolder();
                 holder.t1 = (TextView) view.findViewById(R.id.textView1);
                 holder.imag = (ImageView) view.findViewById(R.id.imageView1);

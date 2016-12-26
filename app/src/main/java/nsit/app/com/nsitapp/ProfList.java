@@ -20,9 +20,9 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.EditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,18 +30,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import functions.Val;
+import functions.Constant;
 
 
-public class ProfList extends AppCompatActivity {
+public class ProfList extends AppCompatActivity implements Constant {
     EditText s;
-    public static final String[] titles = new String[]{"DM", "DC", "DP",
-            "DM", "H&M",
-            "ECE",
-            "COE", "ICE", "MPAE", "IT", "BT", "SAS"};
-
-    public static final String[] full = new String[]{
+    private static final String[] full = new String[]{
             "DEPARTMENT OF MANAGEMENT", "DEPARTMENT OF CHEMISTRY", "DEPARTMENT OF PHYSICS",
             "DEPARTMENT OF MATHS", "School Of Humanities & Management",
             "Division Of Electronics & Communication Engg",
@@ -82,13 +78,15 @@ public class ProfList extends AppCompatActivity {
         JSONObject ob;
 
         try {
-            ar = new JSONArray(Val.pro);
+            ar = new JSONArray(pro);
             ob = ar.getJSONObject(dept);
             ar = ob.getJSONArray("ContentArray");
-            for (int j = 0; j < ar.length(); j++) {
+
+            int len1 = ar.length();
+            for (int j = 0; j < len1; j++) {
 
                 name[k] = ar.getJSONObject(j).getString("Name");
-                if (ar.getJSONObject(j).getString("Designation") != "")
+                if (!Objects.equals(ar.getJSONObject(j).getString("Designation"), ""))
                     name[k] = name[k] + " , " + ar.getJSONObject(j).getString("Designation");
                 ids[k] = ar.getJSONObject(j).getString("Email");
                 contact[k] = ar.getJSONObject(j).getString("ContactNo");
@@ -104,7 +102,7 @@ public class ProfList extends AppCompatActivity {
 
         }
 
-        adapter = new ProfListCustomListViewAdapter(this, R.layout.prof_list_item, profe);
+        adapter = new ProfListCustomListViewAdapter(this, profe);
         listView.setAdapter(adapter);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -125,9 +123,9 @@ public class ProfList extends AppCompatActivity {
         List<ProfListRowItem> it;
 
         //private ProfFilter filter;
-        public ProfListCustomListViewAdapter(Context context, int resourceId,
+        public ProfListCustomListViewAdapter(Context context,
                                              List<ProfListRowItem> items) {
-            super(context, resourceId, items);
+            super(context, R.layout.prof_list_item, items);
             this.context = context;
             it = items;
         }
@@ -140,14 +138,14 @@ public class ProfList extends AppCompatActivity {
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
+            ViewHolder holder;
             final ProfListRowItem rowItem = getItem(position);
 
             LayoutInflater mInflater = (LayoutInflater) context
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             if (convertView == null) {
 //            System.out.println("Convert View is Null");
-                convertView = mInflater.inflate(R.layout.prof_list_item, null);
+                convertView = mInflater.inflate(R.layout.prof_list_item, parent, false);
                 holder = new ViewHolder();
                 holder.txtName = (TextView) convertView.findViewById(R.id.tvname);
                 holder.txtPhone = (TextView) convertView.findViewById(R.id.tvphone);

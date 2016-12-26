@@ -1,9 +1,10 @@
 package nsit.app.com.nsitapp;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,15 +26,16 @@ import java.util.ArrayList;
 
 import functions.ButtonAnimation;
 import functions.Constant;
+import nsit.app.com.nsitapp.helper.AppPermissionChecker;
 
 /**
  * Created by Sidharth Patro on 21-Jun-15.
  */
-public class Hangout_collegeLocations extends AppCompatActivity implements Constant {
+public class Hangout_collegeLocations extends BaseActivity implements Constant {
 
-    ArrayList<LocationGroup> LocationsGroupsList = new ArrayList<>();
-    public ExpandableListView listView;
-    ExpandableListAdapter listAdapter;
+    public static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private ArrayList<LocationGroup> LocationsGroupsList = new ArrayList<>();
+    private ExpandableListView listView;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -48,8 +50,8 @@ public class Hangout_collegeLocations extends AppCompatActivity implements Const
         this.listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
             @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
+            public boolean onChildClick(ExpandableListView parent, final View v,
+                                        final int groupPosition, final int childPosition, long id) {
                 ButtonAnimation btnAnimation = new ButtonAnimation();
                 btnAnimation.animateButton(v, Hangout_collegeLocations.this);
                 String groupType = LocationsGroupsList.get(groupPosition).GroupType;
@@ -92,6 +94,17 @@ public class Hangout_collegeLocations extends AppCompatActivity implements Const
         setTitle("College Hangouts");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        appPermissionChecker.handlePermission(Manifest.permission.ACCESS_FINE_LOCATION, LOCATION_PERMISSION_REQUEST_CODE, new AppPermissionChecker.PermissionRequestCallBack() {
+            @Override
+            public void permissionGranted() {
+                Log.d("DEBUG", "Location permission granted");
+            }
+
+            @Override
+            public void permissionDenied() {
+                Log.d("DEBUG", "Location permission denied");
+            }
+        });
 
 
     }
@@ -107,9 +120,9 @@ public class Hangout_collegeLocations extends AppCompatActivity implements Const
     }
 
 
-    public void populateList(ArrayList<LocationGroup> Items){
+    private void populateList(ArrayList<LocationGroup> Items){
         FillGroupsList();
-        listAdapter = new LocationsList_Adapter(this,Items,null);
+        ExpandableListAdapter listAdapter = new LocationsList_Adapter(this, Items);
         listView.setAdapter(listAdapter);
     }
 
@@ -117,7 +130,7 @@ public class Hangout_collegeLocations extends AppCompatActivity implements Const
 
 
 
-    public void ShowOnMap(View view, Location LocationItem, Integer GroupItem){
+    private void ShowOnMap(View view, Location LocationItem, Integer GroupItem){
         Intent myIntent = new Intent(view.getContext(),Hangout_CollegeLocationMapView.class);
         myIntent.putExtra(LOCATION_NAME, LocationItem.Name);
         myIntent.putExtra(LOCATION_LAT, String.valueOf(LocationItem.Coord.latitude));
@@ -149,7 +162,7 @@ public class Hangout_collegeLocations extends AppCompatActivity implements Const
         }
     }
 
-    public void FillGroupsList(){
+    private void FillGroupsList(){
         ArrayList<Location> NSIT_locations = new ArrayList<>();
         NSIT_locations.add(new Location("North Gate",new LatLng(28.613156, 77.033553)));
         NSIT_locations.add(new Location("South Gate",new LatLng(28.608464, 77.035069)));
@@ -240,10 +253,10 @@ public class Hangout_collegeLocations extends AppCompatActivity implements Const
             groupClicked = groupPosition;
         }
 
-        public LocationsList_Adapter(Context context, ArrayList<Hangout_collegeLocations.LocationGroup> LocationItems, ArrayList<Hangout_collegeLocations.Location> LocationGroupItems) {
+        public LocationsList_Adapter(Context context, ArrayList<LocationGroup> LocationItems) {
             this.context = context;
             this.LocationItems = LocationItems;
-            this.LocationGroupItems = LocationGroupItems;
+            this.LocationGroupItems = null;
             inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -293,7 +306,7 @@ public class Hangout_collegeLocations extends AppCompatActivity implements Const
             if (convertView == null) {
                 LayoutInflater infalInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = infalInflater.inflate(R.layout.location_listitem, null);
+                convertView = infalInflater.inflate(R.layout.location_listitem, parent, false);
             }
             this.listView = (ExpandableListView) parent;
 
@@ -342,7 +355,7 @@ public class Hangout_collegeLocations extends AppCompatActivity implements Const
             if (convertView == null) {
                 LayoutInflater infalInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = infalInflater.inflate(R.layout.locationgroup_listitem, null);
+                convertView = infalInflater.inflate(R.layout.locationgroup_listitem, parent, false);
             }
 
             TextView txtHeader = (TextView) convertView.findViewById(R.id.LocationItem);

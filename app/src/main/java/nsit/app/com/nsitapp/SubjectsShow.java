@@ -40,17 +40,13 @@ import functions.ButtonAnimation;
 import functions.Constant;
 import functions.DBhelp;
 import functions.TableEntry;
-import functions.Val;
 
 
 public class SubjectsShow extends AppCompatActivity implements Constant {
-    ArrayList<String> list1 = new ArrayList<String>();
-    ArrayList<String> list2 = new ArrayList<String>();
+    private ArrayList<String> list1 = new ArrayList<String>();
+    private ArrayList<String> list2 = new ArrayList<String>();
     Button b;
-    ListView lv;
-    CustomList_subjects a;
-    int branch,sem,sec;
-    SharedPreferences s;
+    private CustomList_subjects a;
 
     @Override
     protected void onResume() {
@@ -62,17 +58,14 @@ public class SubjectsShow extends AppCompatActivity implements Constant {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subjects_show);
-        lv = (ListView) findViewById(R.id.list);
+        ListView lv = (ListView) findViewById(R.id.list);
 
         setTitle("Attendance");
 
 
-
-
-        s = PreferenceManager.getDefaultSharedPreferences(this);
-        branch = s.getInt(CALENDAR_BRANCH, 1);
-        sec = s.getInt(CALENDAR_SECTION, 1);
-        sem = s.getInt(CALENDAR_SEM, 1);
+        SharedPreferences s = PreferenceManager.getDefaultSharedPreferences(this);
+        int branch = s.getInt(CALENDAR_BRANCH, 1);
+        int sem = s.getInt(CALENDAR_SEM, 1);
 
 
 
@@ -85,10 +78,10 @@ public class SubjectsShow extends AppCompatActivity implements Constant {
 
             try {
 
-                ob = new JSONObject(Val.subjects);
+                ob = new JSONObject(subjects);
 
                 Log.e("p1",ob+" ");
-                switch (branch-1) {
+                switch (branch -1) {
 
                     case 0 : ar = ob.getJSONArray("coe"); break;
                     case 1 : ar = ob.getJSONArray("it");break;
@@ -109,7 +102,7 @@ public class SubjectsShow extends AppCompatActivity implements Constant {
                 ob = ar.getJSONObject(ar.length()-1);
 
 
-                Log.e("p3",sem + " "+ob);
+                Log.e("p3", sem + " "+ob);
                 ob = ob.getJSONObject("subjects");
 
                 Log.e("p4",ob+" ");
@@ -326,22 +319,24 @@ public class SubjectsShow extends AppCompatActivity implements Constant {
                 }while(c.moveToNext());
             }
 
+            c.close();
+
 
 
             if(total==0)
                 att.setText("?");
             else {
                 float x = attended/total*100;
-                float attend = attended,missed = total-attended;
+                float missed = total-attended;
                 if(x<75) {
 
-                    float m =(3*missed-attend);
+                    float m =(3*missed- attended);
                     int  n = (int)Math.floor(m);
                     msg.setTextColor(Color.parseColor("#ff3300"));
                     msg.setText("Your attendance is short. You need to attend the next " + n + " classes to be safe");
                 }
                 else {
-                    float m = (attend-3*missed)/3;
+                    float m = (attended -3*missed)/3;
                     int n = (int)Math.floor(m);
                     msg.setTextColor(Color.parseColor("#33cc00"));
                     if(n!=0)

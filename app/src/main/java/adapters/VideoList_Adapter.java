@@ -25,6 +25,8 @@ import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.Objects;
+
 import functions.ButtonAnimation;
 import functions.ImageLoader;
 import nsit.app.com.nsitapp.R;
@@ -34,13 +36,11 @@ import nsit.app.com.nsitapp.R;
  */
 public class VideoList_Adapter extends BaseAdapter {
 
-    Context context;
-    JSONArray FeedItems;
-    ImageLoader imageLoader;
+    private JSONArray FeedItems;
+    private ImageLoader imageLoader;
     private static LayoutInflater inflater = null;
 
     public VideoList_Adapter(Context context, JSONArray FeedItems) {
-        this.context = context;
         this.FeedItems = FeedItems;
         imageLoader = new ImageLoader(context.getApplicationContext());
 
@@ -70,12 +70,11 @@ public class VideoList_Adapter extends BaseAdapter {
         return position;
     }
 
-    public String processDate(String Date) {
+    private String processDate(String Date) {
         String tempArray[] = Date.split("-");
 
         String Year = tempArray[0];
         String Day = tempArray[2].split("T")[0];
-        ;
         int MonthInt = Integer.parseInt(tempArray[1]);
         switch (MonthInt) {
             case 1:
@@ -115,7 +114,6 @@ public class VideoList_Adapter extends BaseAdapter {
                 tempArray[1] = "Dec";
                 break;
         }
-        ;
         String Month = tempArray[1];
         return Day + " " + Month + " " + Year;
     }
@@ -124,7 +122,7 @@ public class VideoList_Adapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         if (vi == null)
-            vi = inflater.inflate(R.layout.video_listitem, null);
+            vi = inflater.inflate(R.layout.video_listitem, parent,false);
 
         TextView Title = (TextView) vi.findViewById(R.id.VideoTitle);
         TextView Description = (TextView) vi.findViewById(R.id.VideoDescription);
@@ -136,8 +134,8 @@ public class VideoList_Adapter extends BaseAdapter {
         try {
             Title.setText(FeedItems.getJSONObject(position).getJSONObject("snippet").getString("title"));
             String DescriptionText = FeedItems.getJSONObject(position).getJSONObject("snippet").getString("description");
-            if (DescriptionText == "") {
-                Description.setText("No description for this video.");
+            if (Objects.equals(DescriptionText, "")) {
+                Description.setText(R.string.no_description);
             }
             String publishedAt = processDate(FeedItems.getJSONObject(position).getJSONObject("snippet").getString("publishedAt"));
             txtDate.setText(publishedAt);
